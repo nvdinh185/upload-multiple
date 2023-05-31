@@ -13,7 +13,7 @@ const storage = multer.diskStorage({
     },
 
     filename: function (req, file, cb) {
-        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+        cb(null, path.parse(file.originalname).name + '-' + Date.now() + path.extname(file.originalname));
     }
 });
 
@@ -27,4 +27,6 @@ app.post('/', upload.array('multi-files'), (req, res) => {
     res.redirect('/');
 });
 
-app.listen(3000);
+// start server
+const port = 3000;
+app.listen(port, () => console.log(`Server is starting on port ${port}...`));
